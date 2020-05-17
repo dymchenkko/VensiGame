@@ -5,52 +5,44 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VensiGame;
 
 namespace Vensi
 {
     class Vensi
     {
-       
+
         public delegate void ShowInfo(string message);
         public delegate bool GetReq(bool res);
         public delegate void SetText(int n);
         public delegate void SetTime(int n);
+
+        public Action<Player> SelectCurrentPlayer;
+
         public CardSet Deck { get; set; }
         public Player[] Players { get; set; }
-        private int CurrentScore { get; set; }
-        private int CurrentPlayerTime { get; set; }      
-        public GraphicCardSet Currentcard { get; set; }
-        public int IsPlayerGetCardSet { get; set; }
-        public Panel Player_pannel { get; set; }
+        public CardSet Table { get; set; }
+        public int IsPlayerGetCardSet { get; set; }//?
         public Player CurrentPlayer { get; set; }
-     
+
         private ShowInfo ShowMessage;
         private SetText Settext;
         private SetTime Settime;
-  
-        public Vensi(PictureBox cur_pan, Panel player_pannel, CardSet cardSet, Player[] players)
+
+        public Vensi(Player[] players, CardSet deck, CardSet table)
         {
             IsPlayerGetCardSet = 0;
-            Player_pannel = player_pannel;
-            CurrentScore = 0;
-            CurrentPlayerTime = 60;
-            Deck = cardSet;
+            Deck = deck;
+            Table = table;
             Deck.Mix();
-            for (int i = 0; i < 3; i++)
-            {
-                Card card = Deck.Pull();
-                Currentcard = new GraphicCardSet(cur_pan);
-                Currentcard.Add(new GraphicCard(card.cardFigure, card.cardSuit, cur_pan));
-            }
-            for (int i = 0; i < players.Length; i++)
-            {
-                players[i].Cards = new GraphicCardSet(player_pannel);
-            }
-                      
             Players = players;
+
+            Start();
+
+
         }
 
-     
+
 
         public void RegisterHandler(ShowInfo showInfo, SetText setText, SetTime setTime)
         {
@@ -58,12 +50,12 @@ namespace Vensi
             Settext = setText;
             ShowMessage = showInfo;
         }
-       
+
         public bool IsGameEnded()
         {
             foreach (var player in Players)
             {
-                if (player.Cards.Cards.Count==0)
+                if (player.Cards.Cards.Count == 0)
                 {
                     return true;
                 }
@@ -71,104 +63,59 @@ namespace Vensi
             return false;
         }
 
-        async public void Move(Player player)
+        // method Time is Up ()
+
+        async public void MoveAction(Move move)
         {
-            CurrentPlayer = player;
-             ShowMessage(String.Format("Player {0} will play now", player.Name));
-          
-            player.Cards.Show();
-            for (int j = 0; j < 60; j++)
+            Player player = CurrentPlayer;
+
+            if (move is MoveActive)
             {
-               
-               if (CurrentPlayerTime != 0)
-               {
-                   await Task.Delay(1000);
-                   CurrentPlayerTime--;
-                   Settime(CurrentPlayerTime);
-               } 
-               if (IsPlayerGetCardSet == 1)
-               {
-                   GraphicCardSet cardSet = Currentcard;
-                   for (int i = 0; i < cardSet.Cards.Count; i++)
-                   {
-                       GraphicCard gc = (GraphicCard)cardSet.Cards[i];
-                       CurrentPlayer.Cards.Add(Currentcard);
-                   }
-                   // CurrentPlayer.Cards = new GraphicCardSet(Player_pannel, CurrentPlayer.Cards.Cards);
-                   CurrentPlayer.Cards.Show();
-                   IsPlayerGetCardSet = 0;
-                   CurrentScore = 0;
-                   Settext(CurrentScore);              
-               }
-              
-               else if (IsPlayerGetCardSet == 2)
-               {
-                   if (CurrentScore - 1 == Currentcard.GetPoints())
-                   {
-                       for (int i = 0; i < CurrentPlayer.Cards.Cards.Count; i++)
-                       {
-              
-                           if (((GraphicCard)CurrentPlayer.Cards.Cards[i]).IsSelected)
-                           {
-                                Currentcard.Cards.Add(CurrentPlayer.Cards.Pull(i));
-                           }
-                       }
-                   }
-                   IsPlayerGetCardSet = 0;
-                   //CurrentPlayer.Cards.Show();
-                   CurrentScore = 0;
-                   Settext(CurrentScore);
-               }
-               
+                MoveActive currentMove = (MoveActive)move;
+                if(Value(currentMove.MovingCards)==Table[0].Value)
+                    Table.Add(currentMove.MovingCards)
+
             }
-              
+
+
+
+            ShowMessage(String.Format("Player {0} will play now", player.Name));
+            Refresh();
+            CheckWinner();//проверка, никто ли не выиграл
         }
-        
+
+        private object Value(CardSet cardset)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Start()
         {
-            Currentcard.Show();
-             if (Players.Length == 2)
-            {
-                foreach(Player pl in Players)
-                {
-                    pl.Cards.Add(Deck.Deal(13));
-                    CardSet cs = pl.Cards;
-                     for(int i = 0; i <cs.GetLenght(); i++)
-                    {
-                        ((GraphicCard)pl.Cards.Cards[i]).RegisterHandler(SetTxt);
-                    }                   
-                }
-            }
-            else
-            {
-                foreach (Player pl in Players)
-                {
-                    pl.Cards.Add(Deck.Deal(7));
-                    CardSet cs = pl.Cards;
-                    for (int i = 0; i < cs.GetLenght(); i++)
-                    {
-                        ((GraphicCard)pl.Cards.Cards[i]).RegisterHandler(SetTxt);
-                    }
+            CurrentPlayer = Players[0];
 
-                }
-            }
-            while(!IsGameEnded())
+            Table.Add(Deck.Pull());
+
+            Table.Show();
+
+            int cardAmount = Players.Length == 2 ? 13 : 7;
+
+            foreach (Player pl in Players)
             {
-                for (int i = 0; i < Players.Length; i++)
-                {
-                    
-                    //if (i==1)
-                    //{
-                      //  i = 0;
-                    //}
-                    CurrentScore = 0;
-                    Move(Players[i]);
-                    
-                }
-              
+                pl.Cards.Add(Deck.Deal(cardAmount));
             }
-           ShowMessage( GetWinner());
-            
+
+
+
+            Refresh();
+
+        }
+
+        private void Refresh()
+        {
+            //Отображение изменений
+            //cardset show
+            //selectactiveplayer(activePlayer)
+            throw new NotImplementedException();
         }
 
         private string GetWinner()
@@ -183,16 +130,81 @@ namespace Vensi
             return "";
         }
 
-        public void SetTxt(int n)
-        {
-            CurrentScore += n;
-            Settext(CurrentScore);
-           
-        }
+
         public void Showm(int n)
         {
             ShowMessage(n.ToString());
         }
-     
+
+        public int VensiValue(Card card)
+        {
+            switch (card.cardFigure)
+            {
+                case CardFigure.two:
+                    return 2;
+                case CardFigure.three:
+                    return 3;
+                case CardFigure.four:
+                    return 4;
+                case CardFigure.five:
+                    return 5;
+                case CardFigure.six:
+                    return 6;
+                case CardFigure.seven:
+                    return 7;
+                case CardFigure.eight:
+                    return 8;
+                case CardFigure.nine:
+                    return 9;
+                case CardFigure.ten:
+                    return 10;
+                case CardFigure.jack:
+                    return 11;
+                case CardFigure.queen:
+                    return 12;
+                case CardFigure.king:
+                    return 13;
+                case CardFigure.ace:
+                    return 1;
+                default:
+                    return 0;
+            }
+        }
+
+        public int VensiValue(string s)
+        {
+            switch (s)
+            {
+                case "CardFigure.two":
+                    return 2;
+                case "CardFigure.three":
+                    return 3;
+                case "CardFigure.four":
+                    return 4;
+                case "CardFigure.five":
+                    return 5;
+                case "CardFigure.six":
+                    return 6;
+                case "CardFigure.seven":
+                    return 7;
+                case "CardFigure.eight":
+                    return 8;
+                case "CardFigure.nine":
+                    return 9;
+                case "CardFigure.ten":
+                    return 10;
+                case "CardFigure.jack":
+                    return 11;
+                case "CardFigure.queen":
+                    return 12;
+                case "CardFigure.king":
+                    return 13;
+                case "CardFigure.ace":
+                    return 1;
+                default:
+                    return 0;
+            }
+
+        }
     }
 }
