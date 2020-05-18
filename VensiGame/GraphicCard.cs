@@ -22,7 +22,6 @@ namespace Vensi
             IsSelected = false;
             Pb = new PictureBox();
             Pb.Tag = "CardFigure."+figure;
-            Pb.Click += Pb_click_handler;
             Pb.SizeMode = PictureBoxSizeMode.StretchImage;
             Pb.Width = 50;
             Pb.Height = 100;
@@ -39,24 +38,5 @@ namespace Vensi
         {
             Pb.ImageLocation = "Cards//" + ToString()+".png";
         }
-        private void Pb_click_handler(object sender, EventArgs e)
-        {
-            PictureBox pb = (PictureBox)sender;
-            string s = pb.Tag.ToString();
-            if (IsSelected)
-            {
-            pb.BorderStyle = BorderStyle.None;
-                IsSelected = false;
-                ShowSum(VensiValue(s)*-1);
-            }
-            else
-            {
-                pb.BorderStyle = BorderStyle.Fixed3D;
-                IsSelected = true;
-                int index = s.IndexOf(" ");
-                
-                ShowSum(VensiValue(s));
-            }
         }
     }
-}

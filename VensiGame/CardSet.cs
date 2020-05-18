@@ -90,15 +90,6 @@ public CardSet() : this(new List<Card>())
 
         }
 
-        public int GetPoints()
-        {
-            int res = 0;
-            foreach (Card card in Cards)
-            {
-                res += card.VensiValue();
-            }
-            return res;
-        }
 
         public Card Pull()
         {

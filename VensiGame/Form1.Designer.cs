@@ -49,7 +49,6 @@
             this.btn_move.Text = "Сделать ход";
             this.btn_move.UseVisualStyleBackColor = true;
             this.btn_move.Visible = false;
-            this.btn_move.Click += new System.EventHandler(this.btn_C);
             // 
             // player_pannel
             // 
@@ -95,7 +94,6 @@
             this.btn_get.Text = "Забрать колоду";
             this.btn_get.UseVisualStyleBackColor = true;
             this.btn_get.Visible = false;
-            this.btn_get.Click += new System.EventHandler(this.btn_C);
             // 
             // lbl_time
             // 
@@ -114,7 +112,6 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Deck
             // 
@@ -130,7 +127,6 @@
             this.Controls.Add(this.btn_move);
             this.Name = "Deck";
             this.Text = "Form1";
-            this.Click += new System.EventHandler(this.btn_C);
             this.player_pannel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pb_curcard)).EndInit();
             this.ResumeLayout(false);

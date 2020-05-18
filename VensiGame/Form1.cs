@@ -13,12 +13,17 @@ namespace Vensi
 {
     public partial class Deck : Form
     {
+   
         Vensi game;
          public Deck()
          {
             InitializeComponent();
-              
-         }
+            Player[] players = { new Player("Lisa"), new Player("Lisa2") };
+            Vensi game = new Vensi(players, new GraphicCardSet(player_pannel, 52),new CardSet());
+            game.RegisterHandler(ShowMessage, SetText, SetTime);
+            game.Start();
+
+        }
 
 
         private void ShowMessage(string message)
@@ -35,37 +40,5 @@ namespace Vensi
             lbl_time.Text = n.ToString();
         }
 
-        private void btn_C(object sender, EventArgs e)
-        { 
-            try
-            {
-                Button b = (Button)sender;
-                if (b.Text == "Забрать колоду")
-                {
-                    game.IsPlayerGetCardSet = 1;
-                }
-                else
-                {
-                    game.IsPlayerGetCardSet = 2;
-             
-                }
-            }
-            catch (Exception ex)
-            {
-            
-            }
-                    
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            btn_move.Visible = true;
-            btn_get.Visible = true;
-            button1.Visible = false;
-            Player[] players = { new Player("Lisa"), new Player("Lisa2") };
-             game = new Vensi(pb_curcard, player_pannel, new GraphicCardSet(player_pannel, 52), players);
-            game.RegisterHandler(ShowMessage, SetText, SetTime);
-            game.Start();
-        }
     }
 }

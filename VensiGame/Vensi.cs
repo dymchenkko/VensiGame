@@ -36,10 +36,7 @@ namespace Vensi
             Table = table;
             Deck.Mix();
             Players = players;
-
             Start();
-
-
         }
 
 
@@ -72,21 +69,57 @@ namespace Vensi
             if (move is MoveActive)
             {
                 MoveActive currentMove = (MoveActive)move;
-                if(Value(currentMove.MovingCards)==Table[0].Value)
-                    Table.Add(currentMove.MovingCards)
-
+                if (Value(currentMove.MovingCards) == VensiValue(Table.Cards[Table.Cards.Count - 1]))
+                {
+                    Table.Add(currentMove.MovingCards);
+                    for (int i = 0; i < currentMove.MovingCards.Cards.Count; i++)
+                    {
+                        for (int j = 0; j < CurrentPlayer.Cards.Cards.Count; j++)
+                        {
+                            if (currentMove.MovingCards.Cards[i] == CurrentPlayer.Cards.Cards[j])
+                            {
+                                CurrentPlayer.Cards.Cards.RemoveAt(j);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MovePassive currentMove = (MovePassive)move;
+                CurrentPlayer.Cards.Add(Table);
+                Table.Cards.Clear();
+                Table.Add(Deck.Pull());
             }
 
 
 
             ShowMessage(String.Format("Player {0} will play now", player.Name));
             Refresh();
-            CheckWinner();//проверка, никто ли не выиграл
+            CheckWinner();
+            //проверка, никто ли не выиграл
         }
 
-        private object Value(CardSet cardset)
+        private bool CheckWinner()
         {
-            throw new NotImplementedException();
+
+                if (CurrentPlayer.Cards.Cards.Count == 0)
+                {
+                    ShowMessage(String.Format("Player {0} won", CurrentPlayer.Name));
+                    return true;
+                }
+            
+            return false;
+        }
+
+        private int Value(CardSet cardset)
+        {
+            int res = 0;
+            foreach (var card in cardset.Cards)
+            {
+                res += VensiValue(card);
+            }
+            return res;
         }
 
         public void Start()
@@ -99,10 +132,11 @@ namespace Vensi
 
             int cardAmount = Players.Length == 2 ? 13 : 7;
 
-            foreach (Player pl in Players)
+            for (int i = 0; i < Players.Length; i++)
             {
-                pl.Cards.Add(Deck.Deal(cardAmount));
+                Players[i].Cards.Add(Deck.Deal(cardAmount));
             }
+            
 
 
 
@@ -113,21 +147,14 @@ namespace Vensi
         private void Refresh()
         {
             //Отображение изменений
-            //cardset show
+                    
             //selectactiveplayer(activePlayer)
-            throw new NotImplementedException();
-        }
-
-        private string GetWinner()
-        {
-            foreach (var player in Players)
+            for (int i = 0; i < Players.Length; i++)
             {
-                if (player.Cards.Cards.Count == 0)
-                {
-                    return player.Name;
-                }
+                CurrentPlayer = Players[i++];
+                break;
             }
-            return "";
+            CurrentPlayer.Cards.Show();
         }
 
 
