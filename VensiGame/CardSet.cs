@@ -112,13 +112,14 @@ public CardSet() : this(new List<Card>())
         public CardSet Deal(int amount)
         {
             List<Card> c = new List<Card>();
-            if (amount > Cards.Count) amount = Cards.Count;
+            if (amount > Cards.Count) 
+                amount = Cards.Count;
 
             for (int i = 0; i < amount; i++)
             {
-                GraphicCard cr = (GraphicCard)Cards[i];
+                Card cr = Cards[0];
                 c.Add(cr);
-                Cards.RemoveAt(i);
+                Cards.RemoveAt(0);
             }
 
             return new CardSet(c);

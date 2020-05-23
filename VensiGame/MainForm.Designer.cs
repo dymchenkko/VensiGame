@@ -1,16 +1,16 @@
-﻿namespace Vensi
+﻿namespace VensiGame
 {
-    partial class Deck
+    partial class MainForm
     {
         /// <summary>
-        /// Обязательная переменная конструктора.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Освободить все используемые ресурсы.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,16 +20,18 @@
             base.Dispose(disposing);
         }
 
-        #region Код, автоматически созданный конструктором форм Windows
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.btn_move = new System.Windows.Forms.Button();
             this.player_pannel = new System.Windows.Forms.Panel();
+            this.player2_pannel = new System.Windows.Forms.Panel();
+            this.Deck_pannel = new System.Windows.Forms.Panel();
             this.pb_curcard = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_score = new System.Windows.Forms.Label();
@@ -37,6 +39,8 @@
             this.lbl_time = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.player_pannel.SuspendLayout();
+            this.player2_pannel.SuspendLayout();
+            this.Deck_pannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_curcard)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,6 +61,20 @@
             this.player_pannel.Name = "player_pannel";
             this.player_pannel.Size = new System.Drawing.Size(664, 199);
             this.player_pannel.TabIndex = 2;
+            // 
+            // player2_pannel
+            // 
+            this.player2_pannel.Controls.Add(this.button1);
+            this.player2_pannel.Location = new System.Drawing.Point(13, 439);
+            this.player2_pannel.Name = "player2_pannel";
+            this.player2_pannel.Size = new System.Drawing.Size(664, 199);
+            // 
+            // playerDeck_pannel
+            // 
+            this.Deck_pannel.Controls.Add(this.button1);
+            this.Deck_pannel.Location = new System.Drawing.Point(300, 300);
+            this.Deck_pannel.Name = "player_pannel";
+            this.Deck_pannel.Size = new System.Drawing.Size(664, 199);
             // 
             // pb_curcard
             // 
@@ -124,20 +142,24 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pb_curcard);
             this.Controls.Add(this.player_pannel);
+            this.Controls.Add(this.player2_pannel);
             this.Controls.Add(this.btn_move);
             this.Name = "Deck";
-            this.Text = "Form1";
+            this.Text = "MainForm";
             this.player_pannel.ResumeLayout(false);
+            this.player2_pannel.ResumeLayout(false);
+            this.Deck_pannel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pb_curcard)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
         private System.Windows.Forms.Button btn_move;
         private System.Windows.Forms.Panel player_pannel;
+        private System.Windows.Forms.Panel player2_pannel;
+        private System.Windows.Forms.Panel Deck_pannel;
         private System.Windows.Forms.PictureBox pb_curcard;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbl_score;
@@ -146,4 +168,3 @@
         private System.Windows.Forms.Button button1;
     }
 }
-

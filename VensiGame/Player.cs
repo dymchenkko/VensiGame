@@ -10,7 +10,7 @@ namespace Vensi
     {
      
         public string Name { get; set; }
-        public GraphicCardSet Cards { get; set; }
+        public CardSet Cards { get; set; }
         public int CurrentScore { get; set; }
      
 
@@ -19,7 +19,7 @@ namespace Vensi
             Name = name;
         }
 
-        public Player(string name,GraphicCardSet cards)
+        public Player(string name,CardSet cards)
         {
             Name = name;
             Cards = cards;
