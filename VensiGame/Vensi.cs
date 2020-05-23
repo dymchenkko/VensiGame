@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VensiGame;
 
-namespace Vensi
+namespace VensiGame
 {
     class Vensi
     {
@@ -15,7 +15,6 @@ namespace Vensi
         public delegate void ShowInfo(string message);
         public delegate bool GetReq(bool res);
         public delegate void SetText(int n);
-        public delegate void SetTime(int n);
 
         public Action<Player> SelectCurrentPlayer;
 
@@ -26,8 +25,6 @@ namespace Vensi
         public Player CurrentPlayer { get; set; }
 
         private ShowInfo ShowMessage;
-        private SetText Settext;
-        private SetTime Settime;
 
         public Vensi(Player[] players, CardSet deck, CardSet table)
         {
@@ -41,11 +38,10 @@ namespace Vensi
 
 
 
-        public void RegisterHandler(ShowInfo showInfo, SetText setText, SetTime setTime)
+        public void RegisterHandler(ShowInfo showInfo, Action<Player> selectCurrentPlayer)
         {
-            Settime = setTime;
-            Settext = setText;
             ShowMessage = showInfo;
+            SelectCurrentPlayer = selectCurrentPlayer;
         }
 
         public bool IsGameEnded()
@@ -62,7 +58,7 @@ namespace Vensi
 
         // method Time is Up ()
 
-        async public void MoveAction(Move move)
+        public void MoveAction(Move move)
         {
             Player player = CurrentPlayer;
 
@@ -146,8 +142,8 @@ namespace Vensi
         private void Refresh()
         {
             //Отображение изменений
-                    
-            //selectactiveplayer(activePlayer)
+
+            SelectCurrentPlayer(CurrentPlayer);
             for (int i = 0; i < Players.Length; i++)
             {
                 if (Players[i]==CurrentPlayer)

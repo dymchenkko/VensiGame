@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VensiGame;
 
-namespace Vensi
+namespace VensiGame
 {
     static class Program
     {
