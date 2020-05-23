@@ -97,7 +97,6 @@ namespace Vensi
             ShowMessage(String.Format("Player {0} will play now", player.Name));
             Refresh();
             CheckWinner();
-            //проверка, никто ли не выиграл
         }
 
         private bool CheckWinner()
@@ -151,8 +150,12 @@ namespace Vensi
             //selectactiveplayer(activePlayer)
             for (int i = 0; i < Players.Length; i++)
             {
-                CurrentPlayer = Players[i++];
+                if (Players[i]==CurrentPlayer)
+                {
+           CurrentPlayer = Players[i++];
                 break;
+                }
+                
             }
             CurrentPlayer.Cards.Show();
         }
