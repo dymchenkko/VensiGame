@@ -12,14 +12,10 @@ namespace VensiGame
     {
         public delegate void Sum(int points);
         public PictureBox Pb { get; set; }
-        public bool IsSelected { get; set; }
         private Sum ShowSum;
 
         public GraphicCard(CardFigure figure, CardSuit suit) : base(figure, suit)
         {
-            Form f = new Form();
-            
-            IsSelected = false;
             Pb = new PictureBox();
             Pb.Tag = "CardFigure."+figure;
             Pb.SizeMode = PictureBoxSizeMode.StretchImage;

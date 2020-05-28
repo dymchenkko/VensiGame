@@ -45,6 +45,7 @@ namespace VensiGame
             if (Picturebox != null)
             {
                 GraphicCard gc = (GraphicCard)Cards.Last();
+                gc.Pb = Picturebox;
                 gc.Show();
             }
             else

@@ -33,15 +33,14 @@ namespace VensiGame
             Table = table;
             Deck.Mix();
             Players = players;
-            Start();
         }
 
 
 
-        public void RegisterHandler(ShowInfo showInfo, Action<Player> selectCurrentPlayer)
+        public void RegisterHandler(ShowInfo showInfo)
         {
             ShowMessage = showInfo;
-            SelectCurrentPlayer = selectCurrentPlayer;
+          //  SelectCurrentPlayer = selectCurrentPlayer;
         }
 
         public bool IsGameEnded()
@@ -65,20 +64,50 @@ namespace VensiGame
             if (move is MoveActive)
             {
                 MoveActive currentMove = (MoveActive)move;
-                if (Value(currentMove.MovingCards) == VensiValue(Table.Cards[Table.Cards.Count - 1]))
+                if (currentMove.MovingCards.Cards.Count==1)
                 {
-                    Table.Add(currentMove.MovingCards);
-                    for (int i = 0; i < currentMove.MovingCards.Cards.Count; i++)
+                    if (Value(currentMove.MovingCards) == VensiValue(Table.Cards[Table.Cards.Count - 1]))
                     {
-                        for (int j = 0; j < CurrentPlayer.Cards.Cards.Count; j++)
+                    Table.Add(currentMove.MovingCards);
+                        for (int i = 0; i < currentMove.MovingCards.Cards.Count; i++)
                         {
-                            if (currentMove.MovingCards.Cards[i] == CurrentPlayer.Cards.Cards[j])
+                            for (int j = 0; j < CurrentPlayer.Cards.Cards.Count; j++)
                             {
-                                CurrentPlayer.Cards.Cards.RemoveAt(j);
+                                if (currentMove.MovingCards.Cards[i]==CurrentPlayer.Cards.Cards[j])
+                                {
+                                    CurrentPlayer.Cards.Pull(j);
+                                }
                             }
                         }
+                        currentMove.MovingCards.Cards.Clear();
+                        
+                        Table.Show();
+                        SelectCurrentPlayer(CurrentPlayer);
+                    }
+                   
+                }
+                else
+                {
+                    if (Math.Abs(Value(currentMove.MovingCards) - VensiValue(Table.Cards[Table.Cards.Count - 1]))==1)
+                    {
+                        Table.Add(currentMove.MovingCards);
+                        for (int i = 0; i < currentMove.MovingCards.Cards.Count; i++)
+                        {
+                            for (int j = 0; j < CurrentPlayer.Cards.Cards.Count; j++)
+                            {
+                                if (currentMove.MovingCards.Cards[i] == CurrentPlayer.Cards.Cards[j])
+                                {
+                                    CurrentPlayer.Cards.Pull(j);
+                                }
+                            }
+                        }
+                        currentMove.MovingCards.Cards.Clear();
+                        Table.Show();
+                        SelectCurrentPlayer(CurrentPlayer);
                     }
                 }
+
+                
             }
             else
             {
@@ -86,13 +115,10 @@ namespace VensiGame
                 CurrentPlayer.Cards.Add(Table);
                 Table.Cards.Clear();
                 Table.Add(Deck.Pull());
+                Table.Show();
+                SelectCurrentPlayer(CurrentPlayer);
             }
-
-
-
-            ShowMessage(String.Format("Player {0} will play now", player.Name));
-            Refresh();
-            CheckWinner();
+            
         }
 
         private bool CheckWinner()
@@ -122,38 +148,46 @@ namespace VensiGame
             CurrentPlayer = Players[0];
 
             Table.Add(Deck.Pull());
-
             Table.Show();
-
             int cardAmount = Players.Length == 2 ? 13 : 7;
 
             for (int i = 0; i < Players.Length; i++)
             {
                 Players[i].Cards.Add(Deck.Deal(cardAmount));
             }
-            
 
-
-
-            Refresh();
-
-        }
-
-        private void Refresh()
-        {
-            //Отображение изменений
 
             SelectCurrentPlayer(CurrentPlayer);
+        
+
+    }
+
+        public void Refresh()
+        {
+           
+            //Отображение изменений
+            Table.Show();
             for (int i = 0; i < Players.Length; i++)
             {
                 if (Players[i]==CurrentPlayer)
                 {
-           CurrentPlayer = Players[i++];
-                break;
+                    if (i==Players.Length-1)
+                    {
+                        CurrentPlayer = Players[0];
+                        CurrentPlayer.Cards.Show();
+                        Table.Show();
+                        break;  
+                    }
+                    i++;
+                    CurrentPlayer = Players[i++];
+                    CurrentPlayer.Cards.Show();
+                    Table.Show();
+                    break;
                 }
                 
             }
             CurrentPlayer.Cards.Show();
+          
         }
 
 
