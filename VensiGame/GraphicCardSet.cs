@@ -11,7 +11,7 @@ namespace VensiGame
     class GraphicCardSet:CardSet
     {
         public Panel Panel { get; set; }
-        public PictureBox Picturebox { get; set; }
+        //public PictureBox Picturebox { get; set; }
 
         public GraphicCardSet(Panel panel) : base()
         {
@@ -22,10 +22,10 @@ namespace VensiGame
             Panel = panel;
           
         }
-        public GraphicCardSet(PictureBox pb)
-        {
-            Picturebox = pb;
-        }
+        //public GraphicCardSet(PictureBox pb)
+        //{
+        //    Picturebox = pb;
+        //}
 
         public GraphicCardSet(Panel panel, int count) : this(panel)
         {
@@ -42,14 +42,14 @@ namespace VensiGame
 
         public override void Show()
         {
-            if (Picturebox != null)
-            {
-                GraphicCard gc = (GraphicCard)Cards.Last();
-                gc.Pb = Picturebox;
-                gc.Show();
-            }
-            else
-            {
+            //if (Picturebox != null)
+            //{
+            //    GraphicCard gc = (GraphicCard)Cards.Last();
+            //    gc.Pb = Picturebox;
+            //    gc.Show();
+            //}
+            //else
+            //{
                 for (int i = 0; i < Cards.Count; i++)
                 {
                     GraphicCard graphicCard = (GraphicCard)Cards[i];
@@ -58,14 +58,14 @@ namespace VensiGame
                     pb.BringToFront();
                     pb.Location = new Point(i * 50, 0);
                     pb.Size = new Size(Panel.Width / Cards.Count, Panel.Height);
-                    //pb.Image = new Bitmap(pb.Width, pb.Height);
+                    pb.Image = new Bitmap(pb.Width, pb.Height);
                     pb.TabIndex = i;
                     pb.TabStop = false;
 
                     graphicCard.Show();
                 }
 
-            }
+            //}
         }
     }
 

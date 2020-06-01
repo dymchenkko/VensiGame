@@ -40,7 +40,7 @@ namespace VensiGame
         public void RegisterHandler(ShowInfo showInfo)
         {
             ShowMessage = showInfo;
-          //  SelectCurrentPlayer = selectCurrentPlayer;
+          //SelectCurrentPlayer = selectCurrentPlayer;
         }
 
         public bool IsGameEnded()
@@ -133,7 +133,7 @@ namespace VensiGame
             return false;
         }
 
-        private int Value(CardSet cardset)
+        public int Value(CardSet cardset)
         {
             int res = 0;
             foreach (var card in cardset.Cards)
@@ -189,6 +189,7 @@ namespace VensiGame
             CurrentPlayer.Cards.Show();
           
         }
+
 
 
         public void Showm(int n)

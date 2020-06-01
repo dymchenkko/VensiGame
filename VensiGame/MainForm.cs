@@ -20,7 +20,7 @@ namespace VensiGame
         {
             InitializeComponent();
             Player[] players = { new Player("Lisa",new GraphicCardSet(player_pannel)), new Player("Lisa2",new GraphicCardSet(player2_pannel)) };
-            game = new Vensi(players, new GraphicCardSet(Deck_pannel, 52), new GraphicCardSet(pictureBox2));
+            game = new Vensi(players, new GraphicCardSet(Deck_pannel, 52), new GraphicCardSet(panel1));
             game.RegisterHandler(ShowMessage);
             game.SelectCurrentPlayer = MarkPlayer;
             game.Start();
@@ -66,6 +66,7 @@ namespace VensiGame
                             Activecards.Add(card); 
                             pictureBox.Top += 10;
                             mover = player;
+                       // label1.Text = game.Value(mover.Cards).ToString();??
                         return;
                     }
                 }

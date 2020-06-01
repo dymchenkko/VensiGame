@@ -38,18 +38,18 @@
             this.btn_get = new System.Windows.Forms.Button();
             this.lbl_time = new System.Windows.Forms.Label();
             this.cur_cards = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.Deck_pannel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_move
             // 
-            this.btn_move.Location = new System.Drawing.Point(723, 69);
+            this.btn_move.Location = new System.Drawing.Point(964, 85);
+            this.btn_move.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_move.Name = "btn_move";
-            this.btn_move.Size = new System.Drawing.Size(119, 23);
+            this.btn_move.Size = new System.Drawing.Size(159, 28);
             this.btn_move.TabIndex = 0;
             this.btn_move.Text = "Сделать ход";
             this.btn_move.UseVisualStyleBackColor = true;
@@ -57,9 +57,10 @@
             // 
             // player_pannel
             // 
-            this.player_pannel.Location = new System.Drawing.Point(13, 239);
+            this.player_pannel.Location = new System.Drawing.Point(17, 294);
+            this.player_pannel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.player_pannel.Name = "player_pannel";
-            this.player_pannel.Size = new System.Drawing.Size(664, 199);
+            this.player_pannel.Size = new System.Drawing.Size(885, 245);
             this.player_pannel.TabIndex = 2;
             // 
             // button1
@@ -73,9 +74,10 @@
             // 
             // player2_pannel
             // 
-            this.player2_pannel.Location = new System.Drawing.Point(13, 490);
+            this.player2_pannel.Location = new System.Drawing.Point(17, 603);
+            this.player2_pannel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.player2_pannel.Name = "player2_pannel";
-            this.player2_pannel.Size = new System.Drawing.Size(664, 199);
+            this.player2_pannel.Size = new System.Drawing.Size(885, 245);
             this.player2_pannel.TabIndex = 8;
             // 
             // Deck_pannel
@@ -89,26 +91,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(687, 285);
+            this.label1.Location = new System.Drawing.Point(916, 351);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.Size = new System.Drawing.Size(132, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "Количество очков:";
             // 
             // lbl_score
             // 
             this.lbl_score.AutoSize = true;
-            this.lbl_score.Location = new System.Drawing.Point(720, 308);
+            this.lbl_score.Location = new System.Drawing.Point(960, 379);
+            this.lbl_score.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_score.Name = "lbl_score";
-            this.lbl_score.Size = new System.Drawing.Size(13, 13);
+            this.lbl_score.Size = new System.Drawing.Size(16, 17);
             this.lbl_score.TabIndex = 5;
             this.lbl_score.Text = "0";
             // 
             // btn_get
             // 
-            this.btn_get.Location = new System.Drawing.Point(723, 98);
+            this.btn_get.Location = new System.Drawing.Point(964, 121);
+            this.btn_get.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_get.Name = "btn_get";
-            this.btn_get.Size = new System.Drawing.Size(119, 23);
+            this.btn_get.Size = new System.Drawing.Size(159, 28);
             this.btn_get.TabIndex = 6;
             this.btn_get.Text = "Забрать колоду";
             this.btn_get.UseVisualStyleBackColor = true;
@@ -117,43 +122,46 @@
             // lbl_time
             // 
             this.lbl_time.AutoSize = true;
-            this.lbl_time.Location = new System.Drawing.Point(740, 12);
+            this.lbl_time.Location = new System.Drawing.Point(987, 15);
+            this.lbl_time.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_time.Name = "lbl_time";
-            this.lbl_time.Size = new System.Drawing.Size(13, 13);
+            this.lbl_time.Size = new System.Drawing.Size(16, 17);
             this.lbl_time.TabIndex = 7;
             this.lbl_time.Text = "0";
             // 
             // cur_cards
             // 
-            this.cur_cards.Location = new System.Drawing.Point(325, 12);
+            this.cur_cards.Location = new System.Drawing.Point(223, 43);
+            this.cur_cards.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cur_cards.Name = "cur_cards";
-            this.cur_cards.Size = new System.Drawing.Size(119, 167);
+            this.cur_cards.Size = new System.Drawing.Size(159, 206);
             this.cur_cards.TabIndex = 9;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(-23, -46);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(483, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(791, 15);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(112, 174);
+            this.pictureBox2.Size = new System.Drawing.Size(94, 61);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(442, 43);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(277, 206);
+            this.panel1.TabIndex = 12;
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 701);
+            this.ClientSize = new System.Drawing.Size(1189, 863);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cur_cards);
             this.Controls.Add(this.lbl_time);
             this.Controls.Add(this.btn_get);
@@ -162,10 +170,10 @@
             this.Controls.Add(this.player_pannel);
             this.Controls.Add(this.player2_pannel);
             this.Controls.Add(this.btn_move);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Deck_pannel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -184,7 +192,7 @@
         private System.Windows.Forms.Label lbl_time;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel cur_cards;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Panel panel1;
     }
 }
