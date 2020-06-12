@@ -14,28 +14,57 @@ namespace VensiGame
     {
         Vensi game;
         CardSet Activecards = new CardSet();
-        Card activeCard;
         Player mover;
-        public MainForm()
+        public MainForm(String[] names)
         {
             InitializeComponent();
-            Player[] players = { new Player("Lisa",new GraphicCardSet(player_pannel)), new Player("Lisa2",new GraphicCardSet(player2_pannel)) };
-            game = new Vensi(players, new GraphicCardSet(Deck_pannel, 52), new GraphicCardSet(panel1));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
+
+            List<Player> players = new List<Player>();
+            for (int i = 0; i < names.Length; i++)
+            {
+                Panel pun = new Panel();
+                pun.Location = new Point(13, 370);
+                pun.Width = 830;
+                pun.Height = 200;
+                pun.Visible = false;
+                this.Controls.Add(pun);
+                players.Add(new Player(names[i], new GraphicCardSet(pun)));
+            }
+            game = new Vensi(players.ToArray(), new GraphicCardSet(Deck_pannel, 52), new GraphicCardSet(panel1));
             game.RegisterHandler(ShowMessage);
             game.SelectCurrentPlayer = MarkPlayer;
-            game.Start();
-            foreach (var player in game.Players)
+            game.RequiredScore = RequiredScore;
+            foreach (var card in game.Deck.Cards)
             {
-                foreach (var card in player.Cards.Cards)
-                {
+                
                 PictureBox cardPictureBox = ((GraphicCard)card).Pb;
                 cardPictureBox.Click += CardPictureBox_Click;
-                }
                
             }
-            
+            game.Start() ;
+            int score = game.VensiValue(game.Table.Cards[game.Table.Cards.Count - 1]);
+            int min_score = score - 1;
+            int max_score = score + 1;
+            lbl_score.Text = "Одной картой:" + score;
+            lbl_score2.Text = "Двумя или более картами:" + max_score + " или " + min_score;
+
+
+
+
 
         }
+
+        private void RequiredScore(int score)
+        {
+            int min_score = score - 1;
+            int max_score = score + 1;
+            lbl_score.Text = "Одной картой:" + score;
+            lbl_score2.Text = "Двумя или более картами:" + max_score + " или " + min_score;
+        }
+
         private void CardPictureBox_Click(object sender, EventArgs e)
         {
             PictureBox pictureBox = (PictureBox)sender;
@@ -44,7 +73,10 @@ namespace VensiGame
            
         }
 
-       
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
         private void SetActiveCard(PictureBox pictureBox)
         {
             foreach (var player in game.Players)
@@ -59,13 +91,25 @@ namespace VensiGame
                             {
                                 Activecards.Pull(i);
                             pictureBox.Top -= 10;
+                                cur_score.Text = game.Value(Activecards).ToString();
                             mover = null;
                                 return;
                             }
                         }
-                            Activecards.Add(card); 
-                            pictureBox.Top += 10;
-                            mover = player;
+                            Activecards.Add(card);
+                        if (game.Table.Cards.Count != 0)
+
+                        {
+                            int score = game.VensiValue(game.Table.Cards[game.Table.Cards.Count - 1]);
+                            int min_score = score - 1;
+                            int max_score = score + 1;
+                            lbl_score.Text ="Одной картой:"+score;
+                            lbl_score2.Text= "Двумя или более картами"+max_score+ " или " + min_score;
+
+                        }
+                        pictureBox.Top += 10;
+                        cur_score.Text = game.Value(Activecards).ToString();
+                        mover = player;
                        // label1.Text = game.Value(mover.Cards).ToString();??
                         return;
                     }
@@ -73,17 +117,20 @@ namespace VensiGame
             }
         }
         private void MarkPlayer(Player activePlayer)
-        {
-            foreach (var player in game.Players)
-            {
-                if (player == activePlayer)
-                    ((GraphicCardSet)player.Cards).Panel.Visible = false;
-                              else
-                    ((GraphicCardSet)player.Cards).Panel.Visible = true;
-
-            }
-            game.Refresh();
+        {           
             
+             ((GraphicCardSet)game.CurrentPlayer.Cards).Panel.Visible = false;
+
+           
+            game.Refresh();
+            if (game.Deck.Cards.Count==0 && game.Table.Cards.Count==0)
+            {
+                ((GraphicCardSet)game.Table
+                   ).Panel.Controls.Clear();
+            }
+            lbl_Active.Text = "Сейчас ходит:" + game.CurrentPlayer.Name;
+            ((GraphicCardSet)game.CurrentPlayer.Cards).Panel.Visible = true;
+            Activecards = new CardSet();
         }
 
         private void ShowMessage(string message)
@@ -95,12 +142,18 @@ namespace VensiGame
         private void btn_move_Click(object sender, EventArgs e)
         {
             game.MoveAction(new MoveActive(Activecards));
+          
         }
 
         private void btn_get_Click(object sender, EventArgs e)
         {
             game.MoveAction(new MovePassive());
            
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -39,7 +39,24 @@ namespace VensiGame
            if (count < Count)
                Cards.RemoveRange(0, Count - count);
         }
+        public override void ShowLast()
+        {
+            
+                    Panel.Refresh();
+                    GraphicCard graphicCard = (GraphicCard)Cards[Cards.Count-1];
+                    PictureBox pb = graphicCard.Pb;
+                    Panel.Controls.Add(pb);
+                    pb.BringToFront();
+                    pb.Location = new Point(0, 0);
+                    pb.Size = new Size(80, Panel.Height);
+                    pb.Image = new Bitmap(pb.Width, pb.Height);
+                    pb.TabIndex = 0;
+                    pb.TabStop = false;
 
+                    graphicCard.Show();
+                
+                
+        }
         public override void Show()
         {
             //if (Picturebox != null)
@@ -50,21 +67,21 @@ namespace VensiGame
             //}
             //else
             //{
-                for (int i = 0; i < Cards.Count; i++)
-                {
-                    GraphicCard graphicCard = (GraphicCard)Cards[i];
-                    PictureBox pb = graphicCard.Pb;
-                    Panel.Controls.Add(pb);
-                    pb.BringToFront();
-                    pb.Location = new Point(i * 50, 0);
-                    pb.Size = new Size(Panel.Width / Cards.Count, Panel.Height);
-                    pb.Image = new Bitmap(pb.Width, pb.Height);
-                    pb.TabIndex = i;
-                    pb.TabStop = false;
 
-                    graphicCard.Show();
-                }
+            for (int i = 0; i < Cards.Count; i++)
+            {
+                GraphicCard graphicCard = (GraphicCard)Cards[i];
+                PictureBox pb = graphicCard.Pb;
+                Panel.Controls.Add(pb);
+                pb.BringToFront();
+                pb.Location = new Point(i * pb.Size.Width, 0);
+                pb.Size = new Size(Panel.Width / Cards.Count, Panel.Height);
+                pb.Image = new Bitmap(pb.Width, pb.Height);
+                pb.TabIndex = i;
+                pb.TabStop = false;
 
+                graphicCard.Show();
+            }
             //}
         }
     }

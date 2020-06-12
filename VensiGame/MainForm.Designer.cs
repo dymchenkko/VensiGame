@@ -6,6 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+      
 
         /// <summary>
         /// Clean up any resources being used.
@@ -29,39 +30,29 @@
         private void InitializeComponent()
         {
             this.btn_move = new System.Windows.Forms.Button();
-            this.player_pannel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.player2_pannel = new System.Windows.Forms.Panel();
             this.Deck_pannel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_score = new System.Windows.Forms.Label();
             this.btn_get = new System.Windows.Forms.Button();
-            this.lbl_time = new System.Windows.Forms.Label();
-            this.cur_cards = new System.Windows.Forms.Panel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lbl_Active = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_score2 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cur_score = new System.Windows.Forms.Label();
             this.Deck_pannel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_move
             // 
-            this.btn_move.Location = new System.Drawing.Point(964, 85);
-            this.btn_move.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_move.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn_move.Location = new System.Drawing.Point(723, 69);
             this.btn_move.Name = "btn_move";
-            this.btn_move.Size = new System.Drawing.Size(159, 28);
+            this.btn_move.Size = new System.Drawing.Size(119, 23);
             this.btn_move.TabIndex = 0;
             this.btn_move.Text = "Сделать ход";
             this.btn_move.UseVisualStyleBackColor = true;
             this.btn_move.Click += new System.EventHandler(this.btn_move_Click);
-            // 
-            // player_pannel
-            // 
-            this.player_pannel.Location = new System.Drawing.Point(17, 294);
-            this.player_pannel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.player_pannel.Name = "player_pannel";
-            this.player_pannel.Size = new System.Drawing.Size(885, 245);
-            this.player_pannel.TabIndex = 2;
             // 
             // button1
             // 
@@ -71,14 +62,6 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // player2_pannel
-            // 
-            this.player2_pannel.Location = new System.Drawing.Point(17, 603);
-            this.player2_pannel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.player2_pannel.Name = "player2_pannel";
-            this.player2_pannel.Size = new System.Drawing.Size(885, 245);
-            this.player2_pannel.TabIndex = 8;
             // 
             // Deck_pannel
             // 
@@ -91,90 +74,94 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(916, 351);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label1.Location = new System.Drawing.Point(673, 161);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 17);
+            this.label1.Size = new System.Drawing.Size(207, 20);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Количество очков:";
+            this.label1.Text = "Вам необходимо набрать:";
             // 
             // lbl_score
             // 
             this.lbl_score.AutoSize = true;
-            this.lbl_score.Location = new System.Drawing.Point(960, 379);
-            this.lbl_score.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_score.Location = new System.Drawing.Point(686, 186);
             this.lbl_score.Name = "lbl_score";
-            this.lbl_score.Size = new System.Drawing.Size(16, 17);
+            this.lbl_score.Size = new System.Drawing.Size(0, 13);
             this.lbl_score.TabIndex = 5;
-            this.lbl_score.Text = "0";
             // 
             // btn_get
             // 
-            this.btn_get.Location = new System.Drawing.Point(964, 121);
-            this.btn_get.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_get.Location = new System.Drawing.Point(723, 98);
             this.btn_get.Name = "btn_get";
-            this.btn_get.Size = new System.Drawing.Size(159, 28);
+            this.btn_get.Size = new System.Drawing.Size(119, 23);
             this.btn_get.TabIndex = 6;
             this.btn_get.Text = "Забрать колоду";
             this.btn_get.UseVisualStyleBackColor = true;
             this.btn_get.Click += new System.EventHandler(this.btn_get_Click);
             // 
-            // lbl_time
+            // lbl_Active
             // 
-            this.lbl_time.AutoSize = true;
-            this.lbl_time.Location = new System.Drawing.Point(987, 15);
-            this.lbl_time.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_time.Name = "lbl_time";
-            this.lbl_time.Size = new System.Drawing.Size(16, 17);
-            this.lbl_time.TabIndex = 7;
-            this.lbl_time.Text = "0";
-            // 
-            // cur_cards
-            // 
-            this.cur_cards.Location = new System.Drawing.Point(223, 43);
-            this.cur_cards.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.cur_cards.Name = "cur_cards";
-            this.cur_cards.Size = new System.Drawing.Size(159, 206);
-            this.cur_cards.TabIndex = 9;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(791, 15);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(94, 61);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 11;
-            this.pictureBox2.TabStop = false;
+            this.lbl_Active.AutoSize = true;
+            this.lbl_Active.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.lbl_Active.ForeColor = System.Drawing.Color.Red;
+            this.lbl_Active.Location = new System.Drawing.Point(12, 9);
+            this.lbl_Active.Name = "lbl_Active";
+            this.lbl_Active.Size = new System.Drawing.Size(0, 25);
+            this.lbl_Active.TabIndex = 7;
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(442, 43);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Location = new System.Drawing.Point(332, 35);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(277, 206);
+            this.panel1.Size = new System.Drawing.Size(149, 167);
             this.panel1.TabIndex = 12;
+            // 
+            // lbl_score2
+            // 
+            this.lbl_score2.AutoSize = true;
+            this.lbl_score2.Location = new System.Drawing.Point(686, 210);
+            this.lbl_score2.Name = "lbl_score2";
+            this.lbl_score2.Size = new System.Drawing.Size(0, 13);
+            this.lbl_score2.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label2.Location = new System.Drawing.Point(673, 232);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(101, 20);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "У вас очков:";
+            // 
+            // cur_score
+            // 
+            this.cur_score.AutoSize = true;
+            this.cur_score.ForeColor = System.Drawing.Color.Red;
+            this.cur_score.Location = new System.Drawing.Point(774, 237);
+            this.cur_score.Name = "cur_score";
+            this.cur_score.Size = new System.Drawing.Size(0, 13);
+            this.cur_score.TabIndex = 15;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1189, 863);
+            this.ClientSize = new System.Drawing.Size(892, 609);
+            this.Controls.Add(this.cur_score);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbl_score2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.cur_cards);
-            this.Controls.Add(this.lbl_time);
+            this.Controls.Add(this.lbl_Active);
             this.Controls.Add(this.btn_get);
             this.Controls.Add(this.lbl_score);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.player_pannel);
-            this.Controls.Add(this.player2_pannel);
             this.Controls.Add(this.btn_move);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "   ";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.Deck_pannel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,16 +170,15 @@
         #endregion
 
         private System.Windows.Forms.Button btn_move;
-        private System.Windows.Forms.Panel player_pannel;
-        private System.Windows.Forms.Panel player2_pannel;
         private System.Windows.Forms.Panel Deck_pannel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbl_score;
         private System.Windows.Forms.Button btn_get;
-        private System.Windows.Forms.Label lbl_time;
+        private System.Windows.Forms.Label lbl_Active;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel cur_cards;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lbl_score2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label cur_score;
     }
-}
+    }

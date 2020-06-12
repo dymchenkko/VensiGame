@@ -81,6 +81,10 @@ public CardSet() : this(new List<Card>())
 
            Cards = newCards;
         }
+        public virtual void ShowLast()
+        {
+            Cards[Cards.Count - 1].Show();
+        }
         public virtual void Show()
         {
             foreach (var item in Cards)

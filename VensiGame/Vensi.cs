@@ -17,7 +17,7 @@ namespace VensiGame
         public delegate void SetText(int n);
 
         public Action<Player> SelectCurrentPlayer;
-
+        public Action<int> RequiredScore;
         public CardSet Deck { get; set; }
         public Player[] Players { get; set; }
         public CardSet Table { get; set; }
@@ -60,13 +60,17 @@ namespace VensiGame
         public void MoveAction(Move move)
         {
             Player player = CurrentPlayer;
-
             if (move is MoveActive)
             {
                 MoveActive currentMove = (MoveActive)move;
+                if (Table.Cards.Count==0)
+                {
+                    Table.Add(currentMove.MovingCards);
+                    return;
+                }
                 if (currentMove.MovingCards.Cards.Count==1)
                 {
-                    if (Value(currentMove.MovingCards) == VensiValue(Table.Cards[Table.Cards.Count - 1]))
+                    if (Value(currentMove.MovingCards) == VensiValue(Table.Cards[Table.Cards.Count - 1]) )
                     {
                     Table.Add(currentMove.MovingCards);
                         for (int i = 0; i < currentMove.MovingCards.Cards.Count; i++)
@@ -79,15 +83,22 @@ namespace VensiGame
                                 }
                             }
                         }
+                        RequiredScore(VensiValue(Table.Cards[Table.Cards.Count - 1]));
                         currentMove.MovingCards.Cards.Clear();
-                        
-                        Table.Show();
-                        SelectCurrentPlayer(CurrentPlayer);
+
+                        if (Table.Cards.Count != 0)
+                        {
+                            Table.ShowLast();
+                        }
                     }
-                   
+                    else
+                    {
+                        return;
+                    }
                 }
                 else
                 {
+                    
                     if (Math.Abs(Value(currentMove.MovingCards) - VensiValue(Table.Cards[Table.Cards.Count - 1]))==1)
                     {
                         Table.Add(currentMove.MovingCards);
@@ -101,24 +112,47 @@ namespace VensiGame
                                 }
                             }
                         }
+                        RequiredScore(VensiValue(Table.Cards[Table.Cards.Count - 1]));
                         currentMove.MovingCards.Cards.Clear();
-                        Table.Show();
-                        SelectCurrentPlayer(CurrentPlayer);
+
+                        if (Table.Cards.Count != 0)
+                        {
+                            Table.ShowLast();
+                        }
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
-
+               
                 
             }
-            else
+            else if(move is MovePassive)
             {
+                if (Table.Cards.Count ==0)
+                {
+                    return;
+                }
                 MovePassive currentMove = (MovePassive)move;
                 CurrentPlayer.Cards.Add(Table);
                 Table.Cards.Clear();
+                if (Deck.Cards.Count!=0)
+                {
                 Table.Add(Deck.Pull());
-                Table.Show();
-                SelectCurrentPlayer(CurrentPlayer);
+                    Table.ShowLast();
+                }
+                
+
+
+
             }
-            
+            else
+            {
+                return;
+            }
+            RequiredScore(VensiValue(Table.Cards[Table.Cards.Count - 1]));
+            SelectCurrentPlayer(CurrentPlayer);
         }
 
         private bool CheckWinner()
@@ -148,7 +182,7 @@ namespace VensiGame
             CurrentPlayer = Players[0];
 
             Table.Add(Deck.Pull());
-            Table.Show();
+            Table.ShowLast();
             int cardAmount = Players.Length == 2 ? 13 : 7;
 
             for (int i = 0; i < Players.Length; i++)
@@ -164,9 +198,15 @@ namespace VensiGame
 
         public void Refresh()
         {
-           
+
+
             //Отображение изменений
-            Table.Show();
+            if (Table.Cards.Count!=0)
+            {
+                Table.ShowLast();
+            }
+          
+           
             for (int i = 0; i < Players.Length; i++)
             {
                 if (Players[i]==CurrentPlayer)
@@ -175,13 +215,20 @@ namespace VensiGame
                     {
                         CurrentPlayer = Players[0];
                         CurrentPlayer.Cards.Show();
-                        Table.Show();
+                        if (Table.Cards.Count != 0)
+                        {
+                            Table.ShowLast();
+                        }
                         break;  
                     }
                     i++;
                     CurrentPlayer = Players[i++];
                     CurrentPlayer.Cards.Show();
-                    Table.Show();
+                    if (Table.Cards.Count != 0)
+                    {
+                        Table.ShowLast();
+                    }
+           
                     break;
                 }
                 
