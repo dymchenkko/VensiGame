@@ -58,7 +58,7 @@ namespace VensiGame
         }
 
         private void RequiredScore(int score)
-        {
+        { 
             int min_score = score - 1;
             int max_score = score + 1;
             lbl_score.Text = "Одной картой:" + score;
@@ -89,11 +89,11 @@ namespace VensiGame
                         {
                             if (card == Activecards.Cards[i])
                             {
-                                Activecards.Pull(i);
+                            Activecards.Pull(i);
                             pictureBox.Top -= 10;
-                                cur_score.Text = game.Value(Activecards).ToString();
+                            cur_score.Text = game.Value(Activecards).ToString();
                             mover = null;
-                                return;
+                            return;
                             }
                         }
                             Activecards.Add(card);
@@ -129,6 +129,7 @@ namespace VensiGame
                    ).Panel.Controls.Clear();
             }
             lbl_Active.Text = "Сейчас ходит:" + game.CurrentPlayer.Name;
+            cur_score.Text = game.Value(Activecards).ToString();
             ((GraphicCardSet)game.CurrentPlayer.Cards).Panel.Visible = true;
             Activecards = new CardSet();
         }

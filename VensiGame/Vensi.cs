@@ -83,7 +83,7 @@ namespace VensiGame
                                 }
                             }
                         }
-                        RequiredScore(VensiValue(Table.Cards[Table.Cards.Count - 1]));
+                        
                         currentMove.MovingCards.Cards.Clear();
 
                         if (Table.Cards.Count != 0)
@@ -112,7 +112,7 @@ namespace VensiGame
                                 }
                             }
                         }
-                        RequiredScore(VensiValue(Table.Cards[Table.Cards.Count - 1]));
+                      
                         currentMove.MovingCards.Cards.Clear();
 
                         if (Table.Cards.Count != 0)
@@ -151,7 +151,15 @@ namespace VensiGame
             {
                 return;
             }
-            RequiredScore(VensiValue(Table.Cards[Table.Cards.Count - 1]));
+            if (Table.Cards.Count!=0)
+            {
+                RequiredScore(VensiValue(Table.Cards[Table.Cards.Count - 1]));
+            }
+            else
+            {
+                ShowMessage("Выберите любую карту!");
+            }
+           
             SelectCurrentPlayer(CurrentPlayer);
         }
 
